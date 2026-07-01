@@ -78,14 +78,22 @@ class RoomTransfer(Document):
         Handles the actual transfer sequence safely within the submission transaction block.
         """
         # --- PHASE 1: Close Out the Source Allocation ---
-        source_alloc_doc = frappe.get_doc("Room Allocation", self.source_allocation)
+        transfer_day = self.transfer_date or today()
         
-        # Simulating departure on the old assignment
-        source_alloc_doc.actual_check_out_date = self.transfer_date or today()
-        source_alloc_doc.allocation_status = "Checked-Out"
-        source_alloc_doc.save(ignore_permissions=True)
+        # FIX: Update the submitted Room Allocation directly via the database 
+        # to bypass the framework's document save validation lock.
+        frappe.db.set_value(
+            "Room Allocation", 
+            self.source_allocation, 
+            {
+                "actual_check_out_date": transfer_day,
+                "allocation_status": "Checked-Out"
+            },
+            update_modified=True
+        )
         
         # Release old bed using the target helper function defined in Room Allocation
+        source_alloc_doc = frappe.get_doc("Room Allocation", self.source_allocation)
         source_alloc_doc.release_bed(
             status_on_release="Available", 
             description=f"Released via Room Transfer {self.name}. Reason: {self.reason}"
@@ -99,19 +107,19 @@ class RoomTransfer(Document):
             "block": self.destination_block,
             "room": self.destination_room,
             "bed": self.destination_bed,
-            "check_in_date": self.transfer_date or today(),
-            "allocation_status": "Active" # Automatically skip to Active state
+            "check_in_date": transfer_day,
+            "allocation_status": "Active" 
         })
         
         new_alloc_doc.insert(ignore_permissions=True)
-        new_alloc_doc.submit() # This automatically handles calling lock_bed() internally
+        new_alloc_doc.submit() # Automatically triggers lock_bed() inside Room Allocation
 
         # --- PHASE 3: Complete Transfer Tracking Links ---
-        # Update current document with the newly generated reference link and confirm status
+        # Update current document fields safely post-submit
         self.db_set("new_allocation", new_alloc_doc.name)
         self.db_set("transfer_status", "Completed")
 
-        # Inject a historical audit tracking link into the logs representing the explicit transfer
+        # Inject historical audit tracking links into the logs
         self.log_transfer_history(new_alloc_doc.name)
 
     def log_transfer_history(self, new_allocation_id):

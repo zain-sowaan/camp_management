@@ -144,3 +144,16 @@ class RoomAllocation(Document):
             # Dynamically import helper from bed master script file to prevent code replication
             from camp_management.camp_management.doctype.bed_master.bed_master import update_hierarchy_metrics
             update_hierarchy_metrics(self.room)
+
+    # Inside room_allocation.py
+
+    def on_update(self):
+        """
+        If you use a workflow transition that updates the state,
+        detect the switch to Checked-Out here.
+        """
+        if self.allocation_status == "Checked-Out" and self.docstatus == 1:
+            # Use direct DB sets to avoid triggering validation locks on submitted documents
+            previous_status = frappe.db.get_value("Bed Master", self.bed, "status")
+            if previous_status == "Occupied":
+                self.release_bed(status_on_release="Available", description=f"Employee checked out via workflow action in {self.name}")

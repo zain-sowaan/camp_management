@@ -5,6 +5,46 @@ app_description = "Camp Management System"
 app_email = "amir.baloch@ahwaal.com"
 app_license = "mit"
 
+# Fixtures
+# ------------------
+# Roles, Workflow States/Actions and Workflows the app depends on, shipped so a
+# fresh install reproduces the Room Allocation and Maintenance Request workflows.
+
+fixtures = [
+	{"doctype": "Role", "filters": [["name", "in", ["Camp Manager", "Camp Administrator"]]]},
+	{
+		"doctype": "Workflow State",
+		"filters": [
+			[
+				"name",
+				"in",
+				[
+					"Draft",
+					"Pending Approval",
+					"Active",
+					"Checked-Out",
+					"Cancelled",
+					"Open",
+					"Assigned",
+					"In Progress",
+					"Resolved",
+					"Closed",
+				],
+			]
+		],
+	},
+	{
+		"doctype": "Workflow Action Master",
+		"filters": [
+			["name", "in", ["Review", "Approve", "Reject", "Check-Out", "Assign", "Start Work", "Resolve", "Close"]]
+		],
+	},
+	{
+		"doctype": "Workflow",
+		"filters": [["name", "in", ["Room Allocation Workflow", "Maintenance Request Workflow"]]],
+	},
+]
+
 # Apps
 # ------------------
 
@@ -148,23 +188,11 @@ app_license = "mit"
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
-# 	"all": [
-# 		"camp_management.tasks.all"
-# 	],
-# 	"daily": [
-# 		"camp_management.tasks.daily"
-# 	],
-# 	"hourly": [
-# 		"camp_management.tasks.hourly"
-# 	],
-# 	"weekly": [
-# 		"camp_management.tasks.weekly"
-# 	],
-# 	"monthly": [
-# 		"camp_management.tasks.monthly"
-# 	],
-# }
+scheduler_events = {
+	"hourly": [
+		"camp_management.tasks.flag_overdue_maintenance_requests",
+	],
+}
 
 # Testing
 # -------

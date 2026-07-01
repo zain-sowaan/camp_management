@@ -47,9 +47,9 @@ class CampMaster(Document):
         self.vacant_beds = max(0, self.total_capacity - self.occupied_beds)
 
         if self.total_capacity > 0:
-            self.occupancy_ = (self.occupied_beds / self.total_capacity) * 100
+            self.occupancy_percent = (self.occupied_beds / self.total_capacity) * 100
         else:
-            self.occupancy_ = 0.0
+            self.occupancy_percent = 0.0
 
     def trigger_occupancy_alerts(self):
         """
@@ -68,9 +68,9 @@ class CampMaster(Document):
         alerts = []
 
         # FR-CM-06: Occupancy Alert Threshold Exceeded
-        if self.occupancy_alert_threshold and self.occupancy_ >= self.occupancy_alert_threshold:
+        if self.occupancy_alert_threshold and self.occupancy_percent >= self.occupancy_alert_threshold:
             alerts.append(
-                f"<li><b>Occupancy Alert:</b> Current occupancy is at <b>{self.occupancy_:.1f}%</b>, meeting or exceeding the threshold of {self.occupancy_alert_threshold}%.</li>"
+                f"<li><b>Occupancy Alert:</b> Current occupancy is at <b>{self.occupancy_percent:.1f}%</b>, meeting or exceeding the threshold of {self.occupancy_alert_threshold}%.</li>"
             )
 
         # FR-OC-04: Minimum Vacancy Buffer Breached

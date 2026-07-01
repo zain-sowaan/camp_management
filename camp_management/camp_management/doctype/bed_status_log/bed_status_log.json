@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "LOG-.#####",
  "creation": "2026-06-29 17:12:11.533369",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -90,10 +91,11 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-06-29 17:24:10.797396",
+ "modified": "2026-07-01 16:46:44.041687",
  "modified_by": "Administrator",
  "module": "Camp Management",
  "name": "Bed Status Log",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
@@ -107,6 +109,24 @@
    "role": "System Manager",
    "share": 1,
    "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Camp Manager",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Camp Administrator",
+   "share": 1
   }
  ],
  "row_format": "Dynamic",

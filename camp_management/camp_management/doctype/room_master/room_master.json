@@ -14,7 +14,7 @@
   "total_beds",
   "amenities",
   "room_status",
-  "monthly_rent_sar",
+  "monthly_rent",
   "occupied_beds",
   "vacant_beds",
   "tracked_assets"
@@ -80,7 +80,7 @@
   },
   {
    "default": "0",
-   "fieldname": "monthly_rent_sar",
+   "fieldname": "monthly_rent",
    "fieldtype": "Currency",
    "label": "Monthly Rent (SAR)"
   },
@@ -101,9 +101,9 @@
   },
   {
    "fieldname": "tracked_assets",
-   "fieldtype": "Link",
+   "fieldtype": "Table MultiSelect",
    "label": "Tracked Assets",
-   "options": "Asset"
+   "options": "Room Tracked Asset"
   }
  ],
  "grid_page_length": 50,
@@ -127,6 +127,27 @@
    "role": "System Manager",
    "share": 1,
    "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Camp Administrator",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Camp Manager",
+   "share": 1
   }
  ],
  "row_format": "Dynamic",

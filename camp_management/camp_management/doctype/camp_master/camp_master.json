@@ -16,7 +16,7 @@
   "total_capacity",
   "occupied_beds",
   "vacant_beds",
-  "occupancy_",
+  "occupancy_percent",
   "occupancy_alert_threshold",
   "minimum_vacancy_buffer",
   "remarks"
@@ -94,7 +94,7 @@
   },
   {
    "default": "0",
-   "fieldname": "occupancy_",
+   "fieldname": "occupancy_percent",
    "fieldtype": "Percent",
    "in_list_view": 1,
    "label": "Occupancy %",
@@ -138,6 +138,27 @@
    "role": "System Manager",
    "share": 1,
    "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Camp Administrator",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Camp Manager",
+   "share": 1
   }
  ],
  "row_format": "Dynamic",
