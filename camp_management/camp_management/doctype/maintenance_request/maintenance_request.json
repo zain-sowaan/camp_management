@@ -1,0 +1,213 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "MAINT-.YYYY.-.#####",
+ "creation": "2026-06-29 17:10:57.470108",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_dfd1",
+  "camp",
+  "block",
+  "room",
+  "bed",
+  "issue_type",
+  "priority",
+  "description",
+  "reported_by",
+  "reported_date",
+  "assigned_technician",
+  "target_resolution_date",
+  "status",
+  "work_notes",
+  "resolution_date",
+  "sla_due_datetime",
+  "is_overdue",
+  "maintenance_cost",
+  "linked_asset",
+  "closed_by",
+  "quality_check_remarks",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_dfd1",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "camp",
+   "fieldtype": "Link",
+   "label": "Camp",
+   "options": "Camp Master",
+   "reqd": 1
+  },
+  {
+   "fieldname": "block",
+   "fieldtype": "Link",
+   "label": "Block",
+   "options": "Block Master",
+   "reqd": 1
+  },
+  {
+   "fieldname": "room",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Room",
+   "options": "Room Master",
+   "reqd": 1
+  },
+  {
+   "fieldname": "bed",
+   "fieldtype": "Link",
+   "label": "Bed",
+   "options": "Bed Master"
+  },
+  {
+   "fieldname": "issue_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Issue Type",
+   "options": "Electrical\nPlumbing\nFurniture\nHVAC\nStructural\nPest Control\nOther",
+   "reqd": 1
+  },
+  {
+   "default": "Medium",
+   "fieldname": "priority",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Priority",
+   "options": "Low\nMedium\nHigh",
+   "reqd": 1
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Issue Description",
+   "reqd": 1
+  },
+  {
+   "default": "Session User",
+   "fieldname": "reported_by",
+   "fieldtype": "Link",
+   "label": "Reported By",
+   "options": "User",
+   "reqd": 1
+  },
+  {
+   "default": "Now",
+   "fieldname": "reported_date",
+   "fieldtype": "Datetime",
+   "label": "Reported Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "assigned_technician",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Assigned Technician",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "target_resolution_date",
+   "fieldtype": "Date",
+   "label": "Target Resolution Date"
+  },
+  {
+   "default": "Open",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Open\nAssigned\nIn Progress\nResolved\nClosed",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "work_notes",
+   "fieldtype": "Text",
+   "label": "Work Notes"
+  },
+  {
+   "fieldname": "resolution_date",
+   "fieldtype": "Date",
+   "label": "Resolution Date"
+  },
+  {
+   "fieldname": "sla_due_datetime",
+   "fieldtype": "Datetime",
+   "label": "SLA Due On",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_overdue",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "SLA Overdue",
+   "read_only": 1
+  },
+  {
+   "fieldname": "maintenance_cost",
+   "fieldtype": "Currency",
+   "label": "Maintenance Cost"
+  },
+  {
+   "fieldname": "linked_asset",
+   "fieldtype": "Link",
+   "label": "Linked Asset",
+   "options": "Asset"
+  },
+  {
+   "fieldname": "closed_by",
+   "fieldtype": "Link",
+   "label": "Closed By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "quality_check_remarks",
+   "fieldtype": "Small Text",
+   "label": "Quality Check Remarks"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Maintenance Request",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-06-29 18:13:22.256530",
+ "modified_by": "Administrator",
+ "module": "Camp Management",
+ "name": "Maintenance Request",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

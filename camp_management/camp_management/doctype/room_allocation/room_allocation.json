@@ -1,0 +1,182 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "ALLOC-.YYYY.-.#####",
+ "creation": "2026-06-29 17:09:58.830617",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "employee",
+  "camp",
+  "block",
+  "room",
+  "bed",
+  "check_in_date",
+  "expected_check_out_date",
+  "actual_check_out_date",
+  "duration_days",
+  "allocation_status",
+  "allocated_by",
+  "department",
+  "project",
+  "cost_center",
+  "cancellation_reason",
+  "approved_by",
+  "remarks",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Employee / Contractor",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fieldname": "camp",
+   "fieldtype": "Link",
+   "label": "Camp",
+   "options": "Camp Master",
+   "reqd": 1
+  },
+  {
+   "fieldname": "block",
+   "fieldtype": "Link",
+   "label": "Block",
+   "options": "Block Master",
+   "reqd": 1
+  },
+  {
+   "fieldname": "room",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Room",
+   "options": "Room Master",
+   "reqd": 1
+  },
+  {
+   "fieldname": "bed",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Bed",
+   "options": "Bed Master",
+   "reqd": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "check_in_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Check-In Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "expected_check_out_date",
+   "fieldtype": "Date",
+   "label": "Expected Check-Out Date"
+  },
+  {
+   "fieldname": "actual_check_out_date",
+   "fieldtype": "Date",
+   "label": "Actual Check-Out Date"
+  },
+  {
+   "fieldname": "duration_days",
+   "fieldtype": "Int",
+   "label": "Duration (Days)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "allocation_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Allocation Status",
+   "options": "Draft\nPending Approval\nActive\nChecked-Out\nCancelled",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "allocated_by",
+   "fieldtype": "Link",
+   "label": "Allocated By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department"
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Project",
+   "options": "Project"
+  },
+  {
+   "fieldname": "cost_center",
+   "fieldtype": "Link",
+   "label": "Cost Center",
+   "options": "Cost Center"
+  },
+  {
+   "fieldname": "cancellation_reason",
+   "fieldtype": "Small Text",
+   "label": "Cancellation Reason"
+  },
+  {
+   "fieldname": "approved_by",
+   "fieldtype": "Link",
+   "label": "Approved By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Room Allocation",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-06-30 12:25:03.372589",
+ "modified_by": "Administrator",
+ "module": "Camp Management",
+ "name": "Room Allocation",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

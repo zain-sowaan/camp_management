@@ -1,0 +1,117 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-06-29 17:12:11.533369",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "bed",
+  "room",
+  "previous_status",
+  "new_status",
+  "changed_on",
+  "changed_by",
+  "reference_doctype",
+  "reference_name",
+  "remarks"
+ ],
+ "fields": [
+  {
+   "fieldname": "bed",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Bed",
+   "options": "Bed Master",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "room",
+   "fieldtype": "Link",
+   "label": "Room",
+   "options": "Room Master",
+   "read_only": 1
+  },
+  {
+   "fieldname": "previous_status",
+   "fieldtype": "Select",
+   "label": "Previous Status",
+   "options": "Available\nOccupied\nReserved\nOut of Service",
+   "read_only": 1
+  },
+  {
+   "fieldname": "new_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "New Status",
+   "options": "Available\nOccupied\nReserved\nOut of Service",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "default": "now",
+   "fieldname": "changed_on",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Changed On",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "default": "Session User",
+   "fieldname": "changed_by",
+   "fieldtype": "Link",
+   "label": "Changed By",
+   "options": "User",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "reference_doctype",
+   "fieldtype": "Link",
+   "label": "Source Document Type",
+   "options": "DocType",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reference_name",
+   "fieldtype": "Dynamic Link",
+   "label": "Source Document",
+   "options": "reference_doctype",
+   "read_only": 1
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks",
+   "read_only": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-06-29 17:24:10.797396",
+ "modified_by": "Administrator",
+ "module": "Camp Management",
+ "name": "Bed Status Log",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

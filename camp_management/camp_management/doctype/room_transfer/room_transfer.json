@@ -1,0 +1,181 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "TRF-.YYYY.-.#####",
+ "creation": "2026-06-29 17:09:58.830617",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_ukgz",
+  "employee",
+  "source_allocation",
+  "source_bed",
+  "source_room",
+  "destination_camp",
+  "destination_block",
+  "destination_room",
+  "destination_bed",
+  "transfer_date",
+  "reason",
+  "transfer_status",
+  "new_allocation",
+  "requested_by",
+  "approved_by",
+  "remarks",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_ukgz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Employee / Contractor",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fieldname": "source_allocation",
+   "fieldtype": "Link",
+   "label": "Source Allocation",
+   "options": "Room Allocation",
+   "reqd": 1
+  },
+  {
+   "fieldname": "source_bed",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Source Bed",
+   "options": "Bed Master",
+   "read_only": 1
+  },
+  {
+   "fieldname": "source_room",
+   "fieldtype": "Link",
+   "label": "Source Room",
+   "options": "Room Master",
+   "read_only": 1
+  },
+  {
+   "fieldname": "destination_camp",
+   "fieldtype": "Link",
+   "label": "Destination Camp",
+   "options": "Camp Master",
+   "reqd": 1
+  },
+  {
+   "fieldname": "destination_block",
+   "fieldtype": "Link",
+   "label": "Destination Block",
+   "options": "Block Master",
+   "reqd": 1
+  },
+  {
+   "fieldname": "destination_room",
+   "fieldtype": "Link",
+   "label": "Destination Room",
+   "options": "Room Master",
+   "reqd": 1
+  },
+  {
+   "fieldname": "destination_bed",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Destination Bed",
+   "options": "Bed Master",
+   "reqd": 1
+  },
+  {
+   "fieldname": "transfer_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Transfer Date ",
+   "options": "Today",
+   "reqd": 1
+  },
+  {
+   "fieldname": "reason",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Reason",
+   "reqd": 1
+  },
+  {
+   "default": "Draft",
+   "fieldname": "transfer_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Transfer Status",
+   "options": "Draft\nCompleted\nCancelled",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "new_allocation",
+   "fieldtype": "Link",
+   "label": "New Allocation",
+   "options": "Room Transfer",
+   "read_only": 1
+  },
+  {
+   "fieldname": "requested_by",
+   "fieldtype": "Link",
+   "label": "Requested By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "approved_by",
+   "fieldtype": "Link",
+   "label": "Approved By",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Room Transfer",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-07-01 11:07:18.839903",
+ "modified_by": "Administrator",
+ "module": "Camp Management",
+ "name": "Room Transfer",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

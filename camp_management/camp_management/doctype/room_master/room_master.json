@@ -1,0 +1,137 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "ROOM-.#####",
+ "creation": "2026-06-29 17:05:45.790811",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "room_number",
+  "block",
+  "camp",
+  "floor",
+  "room_type",
+  "total_beds",
+  "amenities",
+  "room_status",
+  "monthly_rent_sar",
+  "occupied_beds",
+  "vacant_beds",
+  "tracked_assets"
+ ],
+ "fields": [
+  {
+   "fieldname": "room_number",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Room Number",
+   "reqd": 1
+  },
+  {
+   "fieldname": "block",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Block",
+   "options": "Block Master",
+   "reqd": 1
+  },
+  {
+   "fieldname": "camp",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Camp",
+   "options": "Camp Master",
+   "read_only": 1
+  },
+  {
+   "fieldname": "floor",
+   "fieldtype": "Int",
+   "label": "Floor"
+  },
+  {
+   "fieldname": "room_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Room Type",
+   "options": "Single\nShared\nDormitory\nSuite",
+   "reqd": 1
+  },
+  {
+   "fieldname": "total_beds",
+   "fieldtype": "Int",
+   "label": "Total Beds",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "amenities",
+   "fieldtype": "Table",
+   "label": "Amenities",
+   "options": "Room Amenity"
+  },
+  {
+   "default": "Available",
+   "fieldname": "room_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Room Status",
+   "options": "Available\nOccupied\nMaintenance\nReserved",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "monthly_rent_sar",
+   "fieldtype": "Currency",
+   "label": "Monthly Rent (SAR)"
+  },
+  {
+   "fieldname": "occupied_beds",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Occupied Beds",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "vacant_beds",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Vacant Beds",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tracked_assets",
+   "fieldtype": "Link",
+   "label": "Tracked Assets",
+   "options": "Asset"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-06-30 12:23:26.821371",
+ "modified_by": "Administrator",
+ "module": "Camp Management",
+ "name": "Room Master",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
