@@ -11,7 +11,16 @@ app_license = "mit"
 # fresh install reproduces the Room Allocation and Maintenance Request workflows.
 
 fixtures = [
-	{"doctype": "Role", "filters": [["name", "in", ["Camp Manager", "Camp Administrator"]]]},
+	{
+		"doctype": "Role",
+		"filters": [
+			[
+				"name",
+				"in",
+				["Camp Manager", "Camp Administrator", "HR Officer (Accommodation)", "Maintenance Staff"],
+			]
+		],
+	},
 	{
 		"doctype": "Workflow State",
 		"filters": [
@@ -36,7 +45,11 @@ fixtures = [
 	{
 		"doctype": "Workflow Action Master",
 		"filters": [
-			["name", "in", ["Review", "Approve", "Reject", "Check-Out", "Assign", "Start Work", "Resolve", "Close"]]
+			[
+				"name",
+				"in",
+				["Review", "Approve", "Reject", "Check-Out", "Assign", "Start Work", "Resolve", "Close"],
+			]
 		],
 	},
 	{
@@ -274,4 +287,3 @@ scheduler_events = {
 # ------------
 # List of apps whose translatable strings should be excluded from this app's translations.
 # ignore_translatable_strings_from = []
-
