@@ -14,6 +14,7 @@ class RoomAllocation(Document):
 		"""
 		self.calculate_duration()
 		self.fetch_department_fallback()
+		self.auto_activate_on_submit()
 		self.validate_bed_availability()
 		self.validate_single_active_allocation()
 
@@ -57,24 +58,43 @@ class RoomAllocation(Document):
 		if self.employee and not self.department:
 			self.department = frappe.db.get_value("Employee", self.employee, "department")
 
+	def auto_activate_on_submit(self):
+		"""
+		Native Submit doesn't go through the optional approval workflow (its actions only
+		appear for users holding the exact workflow role), so submission must be
+		self-sufficient: promote a Draft/Pending Approval allocation to Active whenever it
+		actually reaches docstatus 1, instead of relying on the workflow to have set it.
+		"""
+		if self.docstatus == 1 and self.allocation_status in ("Draft", "Pending Approval"):
+			self.allocation_status = "Active"
+
+	def get_target_beds(self):
+		"""
+		Returns the list of beds this allocation locks/releases: just the selected Bed,
+		or every bed in the Room when Allocate Full Room is checked.
+		"""
+		if self.allocate_full_room and self.room:
+			return frappe.get_all("Bed Master", filters={"room": self.room}, pluck="name")
+		return [self.bed] if self.bed else []
+
 	def validate_bed_availability(self):
 		"""
-		FR-AL-02: Validates that the targeted Bed is 'Available' prior to submission.
+		FR-AL-02: Validates that the targeted Bed(s) are 'Available' prior to submission.
 		Also blocks double-booking by confirming no other document currently retains a lock on it.
+		When Allocate Full Room is checked, every bed in the room must be available.
 		"""
-		if not self.bed:
-			return
+		for bed in self.get_target_beds():
+			bed_status, locked_by = frappe.db.get_value("Bed Master", bed, ["status", "current_allocation"])
 
-		# Check the bed status in the Bed Master database
-		bed_status, locked_by = frappe.db.get_value("Bed Master", self.bed, ["status", "current_allocation"])
-
-		# We only strictly block it if it's not already locked by *this* ongoing allocation
-		if bed_status != "Available" and locked_by != self.name:
-			frappe.throw(
-				_("Bed {0} is currently {1} and cannot be selected. It is locked by transaction {2}.").format(
-					frappe.bold(self.bed), frappe.bold(bed_status), frappe.bold(locked_by or _("Unknown"))
+			# We only strictly block it if it's not already locked by *this* ongoing allocation
+			if bed_status != "Available" and locked_by != self.name:
+				frappe.throw(
+					_(
+						"Bed {0} is currently {1} and cannot be selected. It is locked by transaction {2}."
+					).format(
+						frappe.bold(bed), frappe.bold(bed_status), frappe.bold(locked_by or _("Unknown"))
+					)
 				)
-			)
 
 	def validate_single_active_allocation(self):
 		"""
@@ -104,54 +124,61 @@ class RoomAllocation(Document):
 
 	def lock_bed(self):
 		"""
-		Performs the transactional lock on the Bed Master record,
-		and flags an audit history record into the Bed Status Log.
+		Performs the transactional lock on the Bed Master record(s) - every bed in the room
+		when Allocate Full Room is checked, otherwise just the selected Bed - and flags an
+		audit history record into the Bed Status Log for each.
 		"""
-		previous_status = frappe.db.get_value("Bed Master", self.bed, "status")
+		for bed in self.get_target_beds():
+			previous_status = frappe.db.get_value("Bed Master", bed, "status")
 
-		# Core Update: Flip status to Occupied, tie occupant and transaction links
-		frappe.db.set_value(
-			"Bed Master",
-			self.bed,
-			{"status": "Occupied", "current_occupant": self.employee, "current_allocation": self.name},
-		)
+			# Core Update: Flip status to Occupied, tie occupant and transaction links
+			frappe.db.set_value(
+				"Bed Master",
+				bed,
+				{"status": "Occupied", "current_occupant": self.employee, "current_allocation": self.name},
+			)
 
-		# Generate Immutable History Log Entry
-		self.log_bed_status_change(
-			prev_status=previous_status, new_status="Occupied", remarks=f"Employee checked in via {self.name}"
-		)
+			# Generate Immutable History Log Entry
+			self.log_bed_status_change(
+				bed=bed,
+				prev_status=previous_status,
+				new_status="Occupied",
+				remarks=f"Employee checked in via {self.name}",
+			)
 
 		# Trigger hierarchy rollup totals recalculation
 		self.update_hierarchy()
 
 	def release_bed(self, status_on_release="Available", description=None):
 		"""
-		FR-AL-04: Clears occupant details and releases the bed lock.
+		FR-AL-04: Clears occupant details and releases the bed lock(s).
 		"""
-		previous_status = frappe.db.get_value("Bed Master", self.bed, "status")
+		for bed in self.get_target_beds():
+			previous_status = frappe.db.get_value("Bed Master", bed, "status")
 
-		frappe.db.set_value(
-			"Bed Master",
-			self.bed,
-			{"status": status_on_release, "current_occupant": None, "current_allocation": None},
-		)
+			frappe.db.set_value(
+				"Bed Master",
+				bed,
+				{"status": status_on_release, "current_occupant": None, "current_allocation": None},
+			)
 
-		self.log_bed_status_change(
-			prev_status=previous_status,
-			new_status=status_on_release,
-			remarks=description or f"Checked out via {self.name}",
-		)
+			self.log_bed_status_change(
+				bed=bed,
+				prev_status=previous_status,
+				new_status=status_on_release,
+				remarks=description or f"Checked out via {self.name}",
+			)
 
 		self.update_hierarchy()
 
-	def log_bed_status_change(self, prev_status, new_status, remarks):
+	def log_bed_status_change(self, bed, prev_status, new_status, remarks):
 		"""
 		System-generates a clean, read-only tracking footstep row inside DocType 8 (Bed Status Log).
 		"""
 		log = frappe.get_doc(
 			{
 				"doctype": "Bed Status Log",
-				"bed": self.bed,
+				"bed": bed,
 				"room": self.room,
 				"previous_status": prev_status,
 				"new_status": new_status,

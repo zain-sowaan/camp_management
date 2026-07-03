@@ -10,6 +10,7 @@
   "camp",
   "block",
   "room",
+  "allocate_full_room",
   "bed",
   "check_in_date",
   "expected_check_out_date",
@@ -55,6 +56,12 @@
    "label": "Room",
    "options": "Room Master",
    "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "allocate_full_room",
+   "fieldtype": "Check",
+   "label": "Allocate Full Room (All Beds)"
   },
   {
    "fieldname": "bed",

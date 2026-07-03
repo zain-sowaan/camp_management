@@ -9,6 +9,7 @@
   "room_number",
   "block",
   "camp",
+  "room_title",
   "floor",
   "room_type",
   "total_beds",
@@ -41,6 +42,14 @@
    "in_list_view": 1,
    "label": "Camp",
    "options": "Camp Master",
+   "read_only": 1
+  },
+  {
+   "fieldname": "room_title",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Room Title",
+   "no_copy": 1,
    "read_only": 1
   },
   {
@@ -152,7 +161,9 @@
  ],
  "row_format": "Dynamic",
  "rows_threshold_for_grid_search": 20,
+ "show_title_field_in_link": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "title_field": "room_title"
 }

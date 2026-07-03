@@ -56,6 +56,10 @@ fixtures = [
 		"doctype": "Workflow",
 		"filters": [["name", "in", ["Room Allocation Workflow", "Maintenance Request Workflow"]]],
 	},
+	{
+		"doctype": "Property Setter",
+		"filters": [["name", "=", "Employee-main-show_title_field_in_link"]],
+	},
 ]
 
 # Apps

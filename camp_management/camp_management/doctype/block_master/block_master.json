@@ -8,6 +8,7 @@
  "field_order": [
   "block_name",
   "camp",
+  "block_title",
   "floor_count",
   "block_supervisor",
   "status",
@@ -30,6 +31,14 @@
    "label": "Camp",
    "options": "Camp Master",
    "reqd": 1
+  },
+  {
+   "fieldname": "block_title",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Block Title",
+   "no_copy": 1,
+   "read_only": 1
   },
   {
    "default": "1",
@@ -125,6 +134,6 @@
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
- "title_field": "block_name",
+ "title_field": "block_title",
  "translated_doctype": 1
 }

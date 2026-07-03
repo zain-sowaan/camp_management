@@ -9,6 +9,7 @@
   "bed_number",
   "room",
   "block",
+  "bed_title",
   "bed_type",
   "status",
   "current_occupant",
@@ -35,6 +36,14 @@
    "fieldtype": "Link",
    "label": "Block",
    "options": "Block Master",
+   "read_only": 1
+  },
+  {
+   "fieldname": "bed_title",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Bed Title",
+   "no_copy": 1,
    "read_only": 1
   },
   {
@@ -114,7 +123,9 @@
  ],
  "row_format": "Dynamic",
  "rows_threshold_for_grid_search": 20,
+ "show_title_field_in_link": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "title_field": "bed_title"
 }

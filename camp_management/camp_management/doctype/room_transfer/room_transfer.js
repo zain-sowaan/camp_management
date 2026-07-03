@@ -35,14 +35,4 @@ frappe.ui.form.on("Room Transfer", {
 			};
 		});
 	},
-	employee: function (frm) {
-		if (frm.doc.employee) {
-			// Auto-fetch department on the UI when employee is picked
-			frappe.db.get_value("Employee", frm.doc.employee, "department").then((r) => {
-				if (r.message && r.message.department) {
-					frm.set_value("department", r.message.department);
-				}
-			});
-		}
-	},
 });
