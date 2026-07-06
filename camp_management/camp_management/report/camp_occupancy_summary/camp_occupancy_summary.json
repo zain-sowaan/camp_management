@@ -1,0 +1,36 @@
+{
+ "add_total_row": 0,
+ "add_translate_data": 0,
+ "columns": [],
+ "creation": "2026-07-06 11:56:40.042378",
+ "disable_prepared_report_automation": 0,
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letter_head": null,
+ "modified": "2026-07-06 15:16:14.426698",
+ "modified_by": "Administrator",
+ "module": "Camp Management",
+ "name": "Camp Occupancy Summary",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "query": "SELECT\n    name as \"Camp:Link/Camp Master:150\",\n    camp_name as \"Camp Name::150\",\n    total_capacity as \"Capacity:Int:100\",\n    occupied_beds as \"Occupied:Int:100\",\n    vacant_beds as \"Vacant Beds:Int:100\",\n    occupancy_percent as \"Occupancy Percent:Percent:100\"\nFROM `tabCamp Master`\nWHERE is_active = 1\n",
+ "ref_doctype": "Camp Master",
+ "report_name": "Camp Occupancy Summary",
+ "report_type": "Query Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Camp Manager"
+  },
+  {
+   "role": "Employee"
+  }
+ ],
+ "timeout": 0
+}

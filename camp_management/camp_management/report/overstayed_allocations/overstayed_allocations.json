@@ -1,0 +1,36 @@
+{
+ "add_total_row": 0,
+ "add_translate_data": 0,
+ "columns": [],
+ "creation": "2026-07-06 15:27:21.626365",
+ "disable_prepared_report_automation": 0,
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letter_head": null,
+ "modified": "2026-07-06 16:50:09.160732",
+ "modified_by": "Administrator",
+ "module": "Camp Management",
+ "name": "Overstayed Allocations",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "query": "SELECT\n    name as \"Allocation:Link/Room Allocation:130\",\n    employee as \"Employee:Link/Employee:130\",\n    camp as \"Camp:Link/Camp Master:110\",\n    room as \"Room:Link/Room Master:110\",\n    bed as \"Bed:Link/Bed Master:110\",\n    check_in_date as \"Check-In:Date:100\",\n    expected_check_out_date as \"Expected Check-Out:Date:140\",\n    DATEDIFF(CURDATE(), expected_check_out_date) as \"Days Overdue:Int:110\"\nFROM `tabRoom Allocation`\nWHERE allocation_status = 'Active'\n    AND expected_check_out_date IS NOT NULL\n    AND expected_check_out_date < CURDATE()\n    AND docstatus < 2\nORDER BY expected_check_out_date ASC",
+ "ref_doctype": "Room Allocation",
+ "report_name": "Overstayed Allocations",
+ "report_type": "Query Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Camp Manager"
+  },
+  {
+   "role": "Employee"
+  }
+ ],
+ "timeout": 0
+}

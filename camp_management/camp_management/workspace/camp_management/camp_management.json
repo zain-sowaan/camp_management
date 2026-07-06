@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"tKEboKmBWO\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Camp Management</span>\",\"col\":12}},{\"id\":\"USmFO9uIon\",\"type\":\"card\",\"data\":{\"card_name\":\"Masters\",\"col\":5}},{\"id\":\"vJ1M_KBdKh\",\"type\":\"card\",\"data\":{\"card_name\":\"Operations & Transactions\",\"col\":4}},{\"id\":\"bTv5xFhA_B\",\"type\":\"card\",\"data\":{\"card_name\":\"System Logs & Auditing\",\"col\":4}}]",
+ "content": "[{\"id\":\"tKEboKmBWO\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Camp Management</span>\",\"col\":12}},{\"id\":\"USmFO9uIon\",\"type\":\"card\",\"data\":{\"card_name\":\"Masters\",\"col\":5}},{\"id\":\"vJ1M_KBdKh\",\"type\":\"card\",\"data\":{\"card_name\":\"Operations & Transactions\",\"col\":4}},{\"id\":\"bTv5xFhA_B\",\"type\":\"card\",\"data\":{\"card_name\":\"System Logs & Auditing\",\"col\":5}}]",
  "creation": "2026-07-01 13:20:38.605891",
  "custom_blocks": [],
  "docstatus": 0,
@@ -121,7 +121,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-07-01 14:35:11.884980",
+ "modified": "2026-07-06 15:55:57.890411",
  "modified_by": "Administrator",
  "module": "Camp Management",
  "name": "Camp Management",

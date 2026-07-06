@@ -1,0 +1,45 @@
+{
+ "add_total_row": 0,
+ "add_translate_data": 0,
+ "columns": [],
+ "creation": "2026-07-06 15:27:21.593382",
+ "disable_prepared_report_automation": 0,
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [
+  {
+   "fieldname": "camp",
+   "fieldtype": "Link",
+   "label": "Camp",
+   "mandatory": 0,
+   "options": "Camp Master",
+   "wildcard_filter": 0
+  }
+ ],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letter_head": null,
+ "modified": "2026-07-06 16:50:08.949566",
+ "modified_by": "Administrator",
+ "module": "Camp Management",
+ "name": "Available Beds",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "query": "SELECT\n    bm.name as \"Bed:Link/Bed Master:120\",\n    bm.room as \"Room:Link/Room Master:120\",\n    bm.block as \"Block:Link/Block Master:120\",\n    blk.camp as \"Camp:Link/Camp Master:120\",\n    bm.bed_type as \"Bed Type::110\",\n    bm.status as \"Status::100\"\nFROM `tabBed Master` bm\nINNER JOIN `tabBlock Master` blk ON blk.name = bm.block\nWHERE bm.status = 'Available'\n    AND (%(camp)s = '' OR blk.camp = %(camp)s)\nORDER BY blk.camp, bm.block, bm.room",
+ "ref_doctype": "Bed Master",
+ "report_name": "Available Beds",
+ "report_type": "Query Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Camp Administrator"
+  },
+  {
+   "role": "Camp Manager"
+  }
+ ],
+ "timeout": 0
+}
