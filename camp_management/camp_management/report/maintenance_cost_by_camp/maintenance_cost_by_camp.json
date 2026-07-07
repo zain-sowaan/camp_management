@@ -38,7 +38,7 @@
   }
  ],
  "idx": 0,
- "is_standard": "No",
+ "is_standard": "Yes",
  "letter_head": null,
  "modified": "2026-07-06 15:27:21.391707",
  "modified_by": "Administrator",
@@ -48,7 +48,6 @@
  "prepared_report": 0,
  "ref_doctype": "Maintenance Request",
  "report_name": "Maintenance Cost by Camp",
- "report_script": "conditions = \"\"\nif filters.get(\"camp\"):\n\tconditions = \"and mr.camp = %(camp)s\"\n\nresult = frappe.db.sql(f\"\"\"\n\tselect mr.camp, count(mr.name) as request_count, sum(mr.maintenance_cost) as total_cost\n\tfrom `tabMaintenance Request` mr\n\twhere mr.docstatus < 2 {conditions}\n\tgroup by mr.camp\n\torder by total_cost desc\n\"\"\", filters)\n",
  "report_type": "Script Report",
  "roles": [
   {

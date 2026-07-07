@@ -1,8 +1,13 @@
 // Copyright (c) 2026, Sowaan and contributors
 // For license information, please see license.txt
 
-// frappe.ui.form.on("Room Master", {
-// 	refresh(frm) {
-
-// 	},
-// });
+frappe.ui.form.on("Room Master", {
+	setup: function (frm) {
+		// Filter Block based on selected Camp
+		frm.set_query("block", function () {
+			return {
+				filters: { camp: frm.doc.camp },
+			};
+		});
+	},
+});

@@ -7,8 +7,8 @@
  "engine": "InnoDB",
  "field_order": [
   "room_number",
-  "block",
   "camp",
+  "block",
   "room_title",
   "floor",
   "room_type",
@@ -29,20 +29,19 @@
    "reqd": 1
   },
   {
+   "fieldname": "camp",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Camp",
+   "options": "Camp Master"
+  },
+  {
    "fieldname": "block",
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Block",
    "options": "Block Master",
    "reqd": 1
-  },
-  {
-   "fieldname": "camp",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Camp",
-   "options": "Camp Master",
-   "read_only": 1
   },
   {
    "fieldname": "room_title",

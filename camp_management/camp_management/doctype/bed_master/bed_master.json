@@ -7,8 +7,9 @@
  "engine": "InnoDB",
  "field_order": [
   "bed_number",
-  "room",
+  "camp",
   "block",
+  "room",
   "bed_title",
   "bed_type",
   "status",
@@ -36,7 +37,7 @@
    "fieldtype": "Link",
    "label": "Block",
    "options": "Block Master",
-   "read_only": 1
+   "reqd": 1
   },
   {
    "fieldname": "bed_title",
@@ -75,12 +76,19 @@
    "label": "Current Allocation",
    "options": "Room Allocation",
    "read_only": 1
+  },
+  {
+   "fieldname": "camp",
+   "fieldtype": "Link",
+   "label": "Camp",
+   "options": "Camp Master",
+   "reqd": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-07-01 10:51:33.215170",
+ "modified": "2026-07-06 18:48:33.776969",
  "modified_by": "Administrator",
  "module": "Camp Management",
  "name": "Bed Master",

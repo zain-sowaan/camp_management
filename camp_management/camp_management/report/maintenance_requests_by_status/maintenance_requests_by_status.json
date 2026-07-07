@@ -22,7 +22,7 @@
  "doctype": "Report",
  "filters": [],
  "idx": 0,
- "is_standard": "No",
+ "is_standard": "Yes",
  "letter_head": null,
  "modified": "2026-07-06 12:51:06.887172",
  "modified_by": "Administrator",
@@ -32,7 +32,6 @@
  "prepared_report": 0,
  "ref_doctype": "Maintenance Request",
  "report_name": "Maintenance Requests by Status",
- "report_script": "result = frappe.db.sql(\"\"\"\nselect status, count(*) as total\nfrom `tabMaintenance Request`\ngroup by status\n\"\"\")\n",
  "report_type": "Script Report",
  "roles": [
   {
