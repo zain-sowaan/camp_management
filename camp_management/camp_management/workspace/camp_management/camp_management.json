@@ -1,7 +1,16 @@
 {
- "charts": [],
- "content": "[{\"id\":\"tKEboKmBWO\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Camp Management</span>\",\"col\":12}},{\"id\":\"USmFO9uIon\",\"type\":\"card\",\"data\":{\"card_name\":\"Masters\",\"col\":5}},{\"id\":\"vJ1M_KBdKh\",\"type\":\"card\",\"data\":{\"card_name\":\"Operations & Transactions\",\"col\":4}},{\"id\":\"rEp0RtsCrd\",\"type\":\"card\",\"data\":{\"card_name\":\"Reports\",\"col\":5}},{\"id\":\"bTv5xFhA_B\",\"type\":\"card\",\"data\":{\"card_name\":\"System Logs & Auditing\",\"col\":4}}]",
- "creation": "2026-07-07 11:11:21.712580",
+ "charts": [
+  {
+   "chart_name": "Bed Occupancy Status",
+   "label": "Bed Occupancy Status"
+  },
+  {
+   "chart_name": "Maintenance Requests by Status",
+   "label": "Maintenance Requests by Status"
+  }
+ ],
+ "content": "[{\"id\":\"U9gvu6N71S\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Camp Management</span>\",\"col\":12}},{\"id\":\"TnosZo0oyb\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h5\\\"><b>Quick Actions</b></span>\",\"col\":12}},{\"id\":\"jYa4dItEfC\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Room Allocation\",\"col\":3}},{\"id\":\"HWb0wGCI6H\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Maintenance Request\",\"col\":3}},{\"id\":\"YHtjKuppJc\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Camp Occupancy Summary\",\"col\":3}},{\"id\":\"EkeBIl6vPU\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Available Beds\",\"col\":3}},{\"id\":\"SPezETboTs\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"v2NJRq6MuP\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h5\\\"><b>Key Metrics</b></span>\",\"col\":12}},{\"id\":\"jmpoJa6jC5\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Vacant Beds\",\"col\":3}},{\"id\":\"GD7qUjQGT2\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Active Allocations\",\"col\":3}},{\"id\":\"VzlspEITyi\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Open Maintenance Requests\",\"col\":3}},{\"id\":\"ilRGLydP9r\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Active Camps\",\"col\":3}},{\"id\":\"vmewBTGOj2\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"XH2pS3287S\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h5\\\"><b>Visual Insights</b></span>\",\"col\":12}},{\"id\":\"u4q0gTZwfq\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Bed Occupancy Status\",\"col\":6}},{\"id\":\"EGPdi0ej9R\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Maintenance Requests by Status\",\"col\":6}},{\"id\":\"d2e4iy4DW9\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"utT5LNuWW8\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h5\\\"><b>Needs Attention</b></span>\",\"col\":12}},{\"id\":\"LkZcPNdd52\",\"type\":\"quick_list\",\"data\":{\"quick_list_name\":\"High-Priority Maintenance\",\"col\":12}},{\"id\":\"7wehvGMdGk\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"n1PHcz0hYD\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h5\\\"><b>Modules</b></span>\",\"col\":12}},{\"id\":\"7yrVnpt1qi\",\"type\":\"card\",\"data\":{\"card_name\":\"Masters\",\"col\":5}},{\"id\":\"I8A2NJk1xo\",\"type\":\"card\",\"data\":{\"card_name\":\"Operations & Transactions\",\"col\":4}},{\"id\":\"evTyBfYUPl\",\"type\":\"card\",\"data\":{\"card_name\":\"Reports\",\"col\":5}},{\"id\":\"G3qDO8inVw\",\"type\":\"card\",\"data\":{\"card_name\":\"System Logs & Auditing\",\"col\":4}}]",
+ "creation": "2026-07-09 12:15:13.900554",
  "custom_blocks": [],
  "docstatus": 0,
  "doctype": "Workspace",
@@ -240,17 +249,73 @@
    "type": "Link"
   }
  ],
- "modified": "2026-07-07 11:16:47.338609",
+ "modified": "2026-07-09 12:36:11.908959",
  "modified_by": "Administrator",
  "module": "Camp Management",
  "name": "Camp Management",
- "number_cards": [],
+ "number_cards": [
+  {
+   "label": "Vacant Beds",
+   "number_card_name": "Vacant Beds"
+  },
+  {
+   "label": "Active Allocations",
+   "number_card_name": "Active Allocations"
+  },
+  {
+   "label": "Open Maintenance Requests",
+   "number_card_name": "Open Maintenance Requests"
+  },
+  {
+   "label": "Total Active Camps",
+   "number_card_name": "Total Active Camps"
+  }
+ ],
  "owner": "Administrator",
  "parent_page": "",
  "public": 1,
- "quick_lists": [],
+ "quick_lists": [
+  {
+   "document_type": "Maintenance Request",
+   "label": "High-Priority Maintenance",
+   "quick_list_filter": "{\"status\": [\"in\", [\"Open\", \"Assigned\", \"In Progress\"]], \"priority\": \"High\"}"
+  }
+ ],
  "roles": [],
  "sequence_id": 28.0,
- "shortcuts": [],
+ "shortcuts": [
+  {
+   "color": "Blue",
+   "doc_view": "List",
+   "format": "{} Active",
+   "label": "New Room Allocation",
+   "link_to": "Room Allocation",
+   "stats_filter": "{\"allocation_status\":\"Active\"}",
+   "type": "DocType"
+  },
+  {
+   "color": "Red",
+   "doc_view": "List",
+   "format": "{} Open",
+   "label": "New Maintenance Request",
+   "link_to": "Maintenance Request",
+   "stats_filter": "{\"status\":\"Open\"}",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "label": "Camp Occupancy Summary",
+   "link_to": "Camp Occupancy Summary",
+   "report_ref_doctype": "Camp Master",
+   "type": "Report"
+  },
+  {
+   "color": "Grey",
+   "label": "Available Beds",
+   "link_to": "Available Beds",
+   "report_ref_doctype": "Bed Master",
+   "type": "Report"
+  }
+ ],
  "title": "Camp Management"
 }
