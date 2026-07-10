@@ -1,9 +1,13 @@
 # Copyright (c) 2026, Sowaan and contributors
 # For license information, please see license.txt
 
+import re
+
 import frappe
 from frappe import _
 from frappe.model.document import Document
+
+BED_NUMBER_SUFFIX_RE = re.compile(r"^(.*?)(\d+)$")
 
 
 class BedMaster(Document):
@@ -12,6 +16,7 @@ class BedMaster(Document):
 		Runs validations before saving the Bed Master record.
 		"""
 		self.fetch_block_from_room()
+		self.validate_unique_bed_number()
 		self.validate_out_of_service_role()
 		self.set_title()
 
@@ -57,6 +62,28 @@ class BedMaster(Document):
 			self.bed_title = f"{room_title} / Bed {self.bed_number}"
 		else:
 			self.bed_title = self.bed_number
+
+	def validate_unique_bed_number(self):
+		"""
+		Ensures the Bed Number is unique within the selected Room (mirrors Room Master's
+		own number-uniqueness-within-parent pattern), since two beds sharing a room and
+		bed_number would collide on the same bed_title and be indistinguishable in
+		dropdowns and allocations.
+		"""
+		if not self.bed_number or not self.room:
+			return
+
+		existing_bed = frappe.db.exists(
+			"Bed Master", {"bed_number": self.bed_number, "room": self.room, "name": ("!=", self.name)}
+		)
+
+		if existing_bed:
+			frappe.throw(
+				_("Bed Number {0} already exists in {1}. Bed numbers must be unique within a Room.").format(
+					frappe.bold(self.bed_number), frappe.bold(self.room)
+				),
+				frappe.UniqueValidationError,
+			)
 
 	def validate_out_of_service_role(self):
 		"""
@@ -132,3 +159,80 @@ def update_hierarchy_metrics(room_id):
 		# This triggers threshold evaluations and automated manager alerts safely
 		camp_doc = frappe.get_doc("Camp Master", camp_id)
 		camp_doc.save()
+
+
+@frappe.whitelist()
+def generate_bed_sequence(room, count, start_bed_number=None, bed_type=None):
+	"""
+	Bulk-creates a numbered sequence of Bed Master records for a Room, so setting up
+	a room with many beds (e.g. 50) doesn't require clicking through the "New Bed
+	Master" form one bed at a time. Candidate numbers are checked against beds that
+	already exist in the room and skipped on a clash, so the sequence can be re-run
+	to top up a room instead of failing on the first duplicate.
+	"""
+	frappe.has_permission("Bed Master", "create", throw=True)
+
+	count = frappe.utils.cint(count)
+	if count < 1:
+		frappe.throw(_("Number of beds to generate must be at least 1."))
+	if count > 200:
+		frappe.throw(_("Cannot generate more than 200 beds in a single batch."))
+
+	room_doc = frappe.db.get_value("Room Master", room, ["name", "block", "camp"], as_dict=True)
+	if not room_doc:
+		frappe.throw(_("Room {0} does not exist.").format(room))
+
+	existing_numbers = set(frappe.get_all("Bed Master", filters={"room": room}, pluck="bed_number"))
+
+	prefix, number, width = _parse_bed_number_seed(start_bed_number, existing_numbers)
+
+	created = []
+	skipped = []
+	while len(created) < count:
+		candidate = f"{prefix}{str(number).zfill(width)}"
+		if candidate in existing_numbers:
+			skipped.append(candidate)
+			number += 1
+			continue
+
+		bed = frappe.get_doc(
+			{
+				"doctype": "Bed Master",
+				"bed_number": candidate,
+				"room": room_doc.name,
+				"block": room_doc.block,
+				"camp": room_doc.camp,
+				"bed_type": bed_type,
+			}
+		)
+		bed.insert()
+
+		existing_numbers.add(candidate)
+		created.append(candidate)
+		number += 1
+
+	return {"created": created, "skipped_existing": skipped}
+
+
+def _parse_bed_number_seed(start_bed_number, existing_numbers):
+	"""
+	Splits a starting bed number like "B-07" into a ("B-", 7, 2) prefix/number/
+	zero-padding-width tuple so the sequence keeps incrementing the numeric tail
+	while preserving whatever prefix/padding style is already in use. Falls back to
+	continuing after the highest existing plain-numeric bed number in the room when
+	no starting value is given.
+	"""
+	if start_bed_number:
+		match = BED_NUMBER_SUFFIX_RE.match(str(start_bed_number).strip())
+		if match:
+			prefix, digits = match.groups()
+			width = len(digits) if digits.startswith("0") else 0
+			return prefix, int(digits), width
+		return str(start_bed_number).strip(), 1, 0
+
+	highest = 0
+	for value in existing_numbers:
+		match = BED_NUMBER_SUFFIX_RE.match(str(value or "").strip())
+		if match and not match.group(1):
+			highest = max(highest, int(match.group(2)))
+	return "", highest + 1, 0

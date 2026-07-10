@@ -61,31 +61,11 @@ class BlockMaster(Document):
 		# Count total rooms assigned to this block
 		self.total_rooms = frappe.db.count("Room Master", {"block": self.name})
 
-		room_names = frappe.get_all(
-			"Room Master",
-			filters={"block": self.name},
-			pluck="name",
-		)
-
-		if room_names:
-			metrics = frappe.db.get_value(
-				"Bed Master",
-				{"room": ["in", room_names]},
-				[
-					"COUNT(name) as total_beds",
-					"SUM(CASE WHEN status = 'Occupied' THEN 1 ELSE 0 END) as occupied_beds",
-				],
-				as_dict=True,
-			)
-		else:
-			metrics = None
-
-		if metrics:
-			self.total_beds = int(metrics.get("total_beds") or 0)
-			self.occupied_beds = int(metrics.get("occupied_beds") or 0)
-		else:
-			self.total_beds = 0
-			self.occupied_beds = 0
+		# Bed Master carries its own block reference (fetched from its Room), so beds
+		# can be counted directly instead of via a raw SQL CASE/SUM aggregate, which
+		# frappe.db.get_value doesn't reliably alias back out.
+		self.total_beds = frappe.db.count("Bed Master", {"block": self.name})
+		self.occupied_beds = frappe.db.count("Bed Master", {"block": self.name, "status": "Occupied"})
 
 	def propagate_status_to_rooms(self):
 		"""

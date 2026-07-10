@@ -113,13 +113,11 @@ class RoomMaster(Document):
 
 		total_rooms = frappe.db.count("Room Master", {"block": block_id})
 
-		# Sum up capacities and occupied metrics from all rooms in this block
-		block_totals = frappe.db.get_value(
-			"Room Master", {"block": block_id}, ["sum(total_beds)", "sum(occupied_beds)"], as_dict=True
-		)
-
-		total_beds = int(block_totals.get("sum(total_beds)") or 0)
-		occupied_beds = int(block_totals.get("sum(occupied_beds)") or 0)
+		# Derive totals straight from the actual Bed Master records in this block,
+		# rather than summing Room Master's total_beds capacity field, since a raw
+		# SQL sum() aggregate isn't reliably keyed back out of frappe.db.get_value.
+		total_beds = frappe.db.count("Bed Master", {"block": block_id})
+		occupied_beds = frappe.db.count("Bed Master", {"block": block_id, "status": "Occupied"})
 
 		# Update the parent Block Master directly
 		frappe.db.set_value(
