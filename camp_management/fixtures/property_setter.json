@@ -1,14 +1,18 @@
 [
  {
+  "default_value": null,
   "doc_type": "Employee",
   "docstatus": 0,
   "doctype": "Property Setter",
   "doctype_or_field": "DocType",
   "field_name": null,
   "is_system_generated": 0,
+  "modified": "2026-07-09 12:10:56.891787",
+  "module": null,
   "name": "Employee-main-show_title_field_in_link",
   "property": "show_title_field_in_link",
   "property_type": "Check",
+  "row_name": null,
   "value": "1"
  }
 ]

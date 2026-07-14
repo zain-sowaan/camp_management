@@ -60,6 +60,19 @@ fixtures = [
 		"doctype": "Property Setter",
 		"filters": [["name", "=", "Employee-main-show_title_field_in_link"]],
 	},
+	{
+		"dt": "Custom Field",
+		"filters": [
+			[
+				"name",
+				"in",
+				[
+					"Employee-custom_current_accommodation",
+					"Employee-custom_monthly_accommodation_charge",
+				],
+			]
+		],
+	},
 ]
 
 # Apps
